@@ -2,7 +2,8 @@
   "name": "api-project",
   "scripts": {
     "test": "jest",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "build": "tsc"
   },
   "engines": {
     "node": ">=16"
@@ -16,7 +17,10 @@
   },
   "homepage": "https://github.com/Matstraz/api-project#readme",
   "devDependencies": {
+    "@tsconfig/node16": "^1.0.3",
+    "@types/node": "^18.6.3",
     "jest": "^28.1.3",
-    "prettier": "2.7.1"
+    "prettier": "2.7.1",
+    "typescript": "^4.7.4"
   }
 }
