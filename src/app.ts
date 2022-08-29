@@ -1,6 +1,5 @@
 import express from "express";
 import "express-async-errors";
-import { nextTick } from "process";
 
 import prisma from "./lib/prisma/client";
 
