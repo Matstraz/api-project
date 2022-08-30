@@ -106,12 +106,25 @@ app.post(
             return next("No photo file uploaded");
         }
         //Nel caso in cui sia presente il file da uploadare
+        const planetId = Number(request.params.id);
         const photoFilename = request.file.filename;
 
-        response.status(201).json({ photoFilename });
+        try {
+            await prisma.planet.update({
+                where: { id: planetId },
+                data: { photoFilename },
+            });
+
+            response.status(201).json({ photoFilename });
+        } catch (error) {
+            response.status(404);
+            next(`Cannot POST /planets/${planetId}/photo`);
+        }
     }
 );
 
+app.use("/planets/photos", express.static("uploads"));
+//La seguente è la middleware che gestisce gli errori!!
 app.use(validationErrorMiddleware);
 
 export default app;
