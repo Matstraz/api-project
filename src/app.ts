@@ -99,7 +99,6 @@ app.post(
     //il nome DEVE corrispondere con quello del NAME nel campo input del form
     upload.single("photo"),
     async (request, response, next) => {
-        console.log("request.file", request.file);
         //Nel caso in cui NON sia presente il file da uploadare
         if (!request.file) {
             response.status(400);
