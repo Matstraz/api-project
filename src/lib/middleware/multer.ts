@@ -1,8 +1,12 @@
 import multer from "multer";
 
-export const multerOptins = {};
+const storage = multer.diskStorage({
+    destination: "uploads/",
+});
+
+export const multerOptions = {};
 
 //la seguente funzione ritorna un'istanza della middleware MULTER
 export const initMulterMiddleware = () => {
-    return multer(multerOptins);
+    return multer({ storage, ...multerOptions });
 };
