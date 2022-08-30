@@ -11,6 +11,10 @@ import {
     validationErrorMiddleware,
 } from "./lib/validation";
 
+import { initMulterMiddleware } from "./lib/middleware/multer";
+
+const upload = initMulterMiddleware();
+
 const corsOptions = {
     origin: "http://localhost:8080",
 };
@@ -89,6 +93,24 @@ app.delete("/planets/:id(\\d+)", async (request, response, next) => {
         next(`Cannot DELETE /planets/${planetId}`);
     }
 });
+
+app.post(
+    "/planets/:id(\\d+)/photo",
+    //il nome DEVE corrispondere con quello del NAME nel campo input del form
+    upload.single("photo"),
+    async (request, response, next) => {
+        console.log("request.file", request.file);
+        //Nel caso in cui NON sia presente il file da uploadare
+        if (!request.file) {
+            response.status(400);
+            return next("No photo file uploaded");
+        }
+        //Nel caso in cui sia presente il file da uploadare
+        const photoFilename = request.file.filename;
+
+        response.status(201).json({ photoFilename });
+    }
+);
 
 app.use(validationErrorMiddleware);
 
