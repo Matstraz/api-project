@@ -1,5 +1,6 @@
 import passport from "passport";
 import passportGitHub2 from "passport-github2";
+import { RequestHandler } from "express";
 
 import config from "../../config";
 
@@ -33,4 +34,19 @@ passport.serializeUser<Express.User>((user, done) => done(null, user));
 
 passport.deserializeUser<Express.User>((user, done) => done(null, user));
 
-export { passport };
+const checkAuthorization: RequestHandler = (
+    //Controllerà se qualcuno è loggato in una SESSIONE VALIDA
+    request,
+    response,
+    next
+) => {
+    if (request.isAuthenticated()) {
+        //l'utente è autorizzato ad usare l'api route
+        return next();
+    }
+
+    //l'utente NON è autorizzato ad usare l'api route
+    response.status(401).end();
+};
+
+export { passport, checkAuthorization };

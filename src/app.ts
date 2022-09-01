@@ -7,6 +7,7 @@ import { initSessionMiddleware } from "./lib/middleware/session";
 import { passport } from "./lib/middleware/passport";
 
 import planetRoutes from "./routes/planets";
+import authRoutes from "./routes/auth";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(initCorsMiddleware());
 
 //La seguente è la middleware che monta le routes sotto l'indirizzo /planets
 app.use("/planets", planetRoutes);
+app.use("/auth", authRoutes);
 
 //La seguente è la middleware che gestisce gli errori!!
 app.use(validationErrorMiddleware);
