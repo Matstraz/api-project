@@ -15,7 +15,7 @@ import authRoutes from "./routes/auth";
 
 const app = express();
 
-app.use(initSessionMiddleware());
+app.use(initSessionMiddleware(app.get("env")));
 app.use(passport.initialize()); //inizializza la nostra passport middleware, configurataaa per usare la github authentucation strategy
 app.use(passport.session()); //gestisce il serializing/deserializing dei dati utente in un sessione(dopo il login dell'utente stesso)
 
